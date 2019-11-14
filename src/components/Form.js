@@ -48,9 +48,9 @@ const UserForm = ({ errors, touched, values, status }) => {
             </Form>
             {users.map(user => (
                 <ul key={user.id}>
-                    <li>Users: {user.name} </li>
-                    <li>Users: {user.email} </li>
-                    <li>Users: {user.password} </li>
+                    <span>Users: {user.name} </span><br />
+                    <span>Email: {user.email} </span><br />
+                    <span>Password: {user.password} </span>
                 </ul>
             ))}
         </div>
@@ -65,7 +65,7 @@ const FormikUserForm = withFormik({
             terms: terms || ''
         };
     },
-    validationSchema: Yup.object().shape({
+    vaspandationSchema: Yup.object().shape({
         name: Yup.string().required(),
         email: Yup.string().required()
     }),
