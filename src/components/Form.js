@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
-import { Form, Field, withFormik, yupToFormErrors  } from 'formik'
+import { Form, Field, withFormik  } from 'formik'
 import *as Yup from 'yup';
 
 const UserForm = ({ errors, touched, values, status }) => {
@@ -22,20 +22,28 @@ const UserForm = ({ errors, touched, values, status }) => {
                 {touched.name && errors.name && (
                 <p className='error'>{errors.name}</p>
                 )}
+                <br />
                 <Field type="text" name="email" placeholder="email" />
                 {touched.email && errors.email && (
                 <p className="error">{errors.email}</p>
                 )}
+                <br />
+                <Field type="password" name="password" placeholder="Password" />
+                {touched.password && errors.password && (
+                <p className="error">{errors.password}</p>
+                )}
+                <br />
                 <label 
                 className='checkbox-container'>
                 Terms of Service
                 <Field 
                 type='checkbox'
-                name='tos'
-                checked={values.tos}
+                name='terms'
+                checked={values.terms}
                 />
                 <span className='checkmark'/>
                 </label>
+                <br />
                 <button type="submit">Submit!</button>
             </Form>
             {users.map(user => (
@@ -49,10 +57,12 @@ const UserForm = ({ errors, touched, values, status }) => {
     );
 };
 const FormikUserForm = withFormik({
-    mapPropsToValues({name, email, tos}) {
+    mapPropsToValues({name, email, terms, password}) {
         return {
             name: name || '',
-            email: email || ''
+            email: email || '',
+            password: password || '',
+            terms: terms || ''
         };
     },
     validationSchema: Yup.object().shape({
