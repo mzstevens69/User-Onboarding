@@ -2,6 +2,62 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 import { Form, Field, withFormik  } from 'formik'
 import *as Yup from 'yup';
+import styled from 'styled-components';
+// style User form
+const MainTitle = styled.h1 `
+
+    color: whitesmoke;
+    text-shadow:
+        -1px -1px 0 firebrick,
+        1px -1px 0 firebrick,
+        -1px 1px 0 firebrick,
+        1px 1px 0 firebrick; 
+`
+const UForm = styled.div `
+
+    padding: 4%;
+
+`
+const CheckBox = styled.label `
+
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-top: 32px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    color: white;
+    text-shadow:
+        -1px -1px 0 firebrick,
+        1px -1px 0 firebrick,
+        -1px 1px 0 firebrick,
+        1px 1px 0 firebrick; 
+  
+`
+const NewUser = styled.ul `
+
+    color: white;
+    text-shadow:
+        -1px -1px 0 firebrick,
+        1px -1px 0 firebrick,
+        -1px 1px 0 firebrick,
+        1px 1px 0 firebrick; 
+
+`
+
+const Button = styled.button`
+    
+    width: 12%;
+    background-color: lemonchiffon;
+    font-size: .85rem;
+    color: midnightblue;
+    border-radius: 3px
+    
+`
 
 const UserForm = ({ errors, touched, values, status }) => {
     const [users, setUsers] = useState([]);
@@ -12,9 +68,10 @@ const UserForm = ({ errors, touched, values, status }) => {
         }
     }, [status])
     return (
-        <div className='user-form'>
-            <h1>User Form</h1>
+        <UForm>
+            <MainTitle>User Form</MainTitle>
             <Form>
+             
                 <Field 
                 type='text'
                 name='name'
@@ -33,29 +90,29 @@ const UserForm = ({ errors, touched, values, status }) => {
                 <p className="error">{errors.password}</p>
                 )}
                 <br />
-                <label 
-                className='checkbox-container'>
-                Terms of Service
+                <CheckBox>
+                I agree to Terms of Service
                 <Field 
                 type='checkbox'
                 name='terms'
                 checked={values.terms}
                 />
-                <span className='checkmark'/>
-                </label>
+                <span/>
+                </CheckBox>
                 <br />
-                <button type="submit">Submit!</button>
+                <Button type="submit">Submit!</Button>
+                
             </Form>
             {users.map(user => (
-                <ul key={user.id}>
+                <NewUser key={user.id}>
                     <span>Users: {user.name} </span><br />
                     
                     <span>Email: {user.email} </span><br />
                     
                     <span>Password: {user.password} </span>
-                </ul>
+                </NewUser>
             ))}
-        </div>
+        </UForm>
     );
 };
 const FormikUserForm = withFormik({
