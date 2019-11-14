@@ -49,7 +49,9 @@ const UserForm = ({ errors, touched, values, status }) => {
             {users.map(user => (
                 <ul key={user.id}>
                     <span>Users: {user.name} </span><br />
+                    
                     <span>Email: {user.email} </span><br />
+                    
                     <span>Password: {user.password} </span>
                 </ul>
             ))}
@@ -65,9 +67,10 @@ const FormikUserForm = withFormik({
             terms: terms || ''
         };
     },
-    vaspandationSchema: Yup.object().shape({
-        name: Yup.string().required(),
-        email: Yup.string().required()
+    validationSchema: Yup.object().shape({
+        name: Yup.string().required('put your name already!'),
+        email: Yup.string().required('everybody needs an email'),
+        password: Yup.string().required('at least enter 1234!')
     }),
     handleSubmit(values, {setStatus}) {
         axios.post('https://reqres.in/api/users', values)
